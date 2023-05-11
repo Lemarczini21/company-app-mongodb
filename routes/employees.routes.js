@@ -1,27 +1,42 @@
 const express = require('express');
 const router = express.Router();
 const ObjectId = require('mongodb').ObjectId;
+const Employee = require('../models/department.model');
 
-router.get('/employees', (req, res) => {
+router.get('/employees', async (req, res) => {
   // res.json(db.employees);
-  req.db
-    .collection('employees')
-    .find()
-    .toArray((err, data) => {
-      if (err) res.status(500).json({ message: err });
-      else res.json(data);
-    });
+  // req.db
+  //   .collection('employees')
+  //   .find()
+  //   .toArray((err, data) => {
+  //     if (err) res.status(500).json({ message: err });
+  //     else res.json(data);
+  //   });
+  try {
+    res.json(await Employee.find());
+  } catch (err) {
+    res.status(500).json({ message: err });
+  }
 });
 
-router.get('/employees/random', (req, res) => {
+router.get('/employees/random', async (req, res) => {
   // res.json(db.employees[Math.floor(Math.random() * db.length)]);
-  req.db
-    .collection('employees')
-    .aggregate([{ $sample: { size: 1 } }])
-    .toArray((err, data) => {
-      if (err) res.status(500).json({ message: err });
-      else res.json(data[0]);
-    });
+  // req.db
+  //   .collection('employees')
+  //   .aggregate([{ $sample: { size: 1 } }])
+  //   .toArray((err, data) => {
+  //     if (err) res.status(500).json({ message: err });
+  //     else res.json(data[0]);
+  //   });
+  try {
+    const count = await Employee.countDocuments();
+    const rand = Math.floor(Math.random() * count);
+    const emp = await Employee.findOne().skip(rand);
+    if (!emp) res.status(404).json({ message: 'Not found...' });
+    else res.json(emp);
+  } catch (err) {
+    res.status(500).json({ message: err });
+  }
 });
 
 router.get('/employees/:id', (req, res) => {
