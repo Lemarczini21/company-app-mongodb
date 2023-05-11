@@ -66,7 +66,7 @@ router.put('/employees/:id', (req, res) => {
       },
     },
     (err) => {
-      if (err) res.json(500).json({ message: err });
+      if (err) res.status(500).json({ message: err });
       else res.json({ message: 'OK' });
     }
   );
