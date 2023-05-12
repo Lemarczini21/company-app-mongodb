@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// app.use('/api', employeesRoutes);
+app.use('/api', employeesRoutes);
 app.use('/api', departmentsRoutes);
 // app.use('/api', productsRoutes);
 

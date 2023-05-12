@@ -70,7 +70,7 @@ router.post('/departments', async (req, res) => {
     await newDepartment.save();
     res.json({ message: 'OK' });
   } catch (err) {
-    res.status(500).json({ message: 'OK' });
+    res.status(500).json({ message: err });
   }
 });
 
