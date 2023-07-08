@@ -50,9 +50,6 @@ exports.updateDep = async (req, res) => {
       { returnDocument: 'after' }
     );
     if (dep) {
-      // dep.name = name;
-      // await dep.save();
-      // res.json(await Department.find());
       res.json(dep);
     } else res.status(404).json({ message: 'Not Found...' });
   } catch (err) {
