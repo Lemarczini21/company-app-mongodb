@@ -32,4 +32,16 @@ describe('Employee', () => {
       });
     }
   });
+  it('should not throw an error if "firstName", "lastName", "department" is ok ', () => {
+    const cases = [{ firstName: 'John', lastName: 'Doe', department: 'Ads' }];
+    const emp = new Employee({
+      firstName: cases[0].firstName,
+      lastName: cases[0].lastName,
+      department: cases[0].department,
+    });
+
+    emp.validate((err) => {
+      expect(err).to.not.exist;
+    });
+  });
 });
